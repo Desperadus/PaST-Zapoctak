@@ -1,6 +1,6 @@
 .PHONY: all clean
 
-all: Coding/data Latex/main.pdf
+all: Coding/data main.pdf
 
 clean:
 	rm -rf Coding/data
@@ -19,8 +19,8 @@ Coding/data: archive.zip happiness.zip gdp.zip
 	unzip Coding/data/gdp.zip -d Coding/data/
 	rm Coding/data/gdp.zip
 
-Latex/main.pdf: Latex/main.tex Latex/citations.bib Coding/data Coding/male_and_female.py Coding/genders_mean_suicide_rate.pdf
+main.pdf: Latex/main.tex Latex/citations.bib Coding/data Coding/male_and_female.py Coding/genders_mean_suicide_rate.pdf
 	echo "Creating Latex/main.pdf..."
-	cd Latex && pdflatex -pdf main.tex && ln -s main.pdf ../result.pdf
+	cd Latex && pdflatex -pdf main.tex && cp main.pdf ../result.pdf && rm main.pdf
 
 Coding/genders_mean_suicide_rate.pdf: Coding/make_pdf_plots.py 
