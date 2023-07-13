@@ -31,9 +31,9 @@ Data jsou brána z volně dostupného datasetu na kaggle \href{https://www.kaggl
 \section{Sebevraždy u mužů a žen}
 Podívejme se nyní, jestli jsou obě dvě skupiny obyvatel pod stejným rizikem. Buď $H_0$, že ženy a muži jsou ve světě pod stejným rizikem a buď $H_1$ že jedno pohlaví páchá více sebevražd. Hypotézu ověřím dvouvýběrovým t-testem a jako hladinu významnosti volím $\alpha = 0.05$ . Ten má určité předpoklady.
 \begin{enumerate}
-\item Nezávislost jevů - lze spolehlivě předpokládat (vyjímku činní rituální sebevraždy či jiné hromadné a ty tvoří velice malou část).
-\item Normální rozdělení - lze očekávat rozdělení podobné normálnímu, ovšem ne přímo normální. (Extrémy a míra sebevražd nemůže být záporná). Ovšem dataset je docela velký $(n > 30)$ a tedy díky centrální limitní větě si můžeme dovolit udělat t-test.
-\item Poslední podmínkou k užití je, že variance budou hodně podobné - vzhledem k tomu, že tohle netuším, tak zvolím Welchův t-test tohle nepředpokládá.
+\item Nezávislost jevů - lze předpokládat, že drtivá většina sebevražd bude nezávislá na jiných.
+\item Normální rozdělení - lze očekávat rozdělení podobné normálnímu, ovšem ne přímo normální. (Extrémy a míra sebevražd nemůže být záporná nám v tom brání). Ovšem dataset je docela velký $(n > 30)$ a tedy díky centrální limitní větě si můžeme dovolit udělat t-test.
+\item Poslední podmínkou k užití je to, že variance budou hodně podobné - vzhledem k tomu, že netuším, zdalipak budou podobné, tak zvolím Welchův t-test, který tohle nepředpokládá a umožňuje je mít rozdílné.
 \end{enumerate}
 
 \newpage
@@ -58,7 +58,7 @@ Jako výstup dostáváme: $t\_statistic = 13.4164773450928$ a $p\_value = 2.8621
 \end{figure}
 
 \newpage
-Pouze v těchto zemích byla míra sebevražd žen v roce 2016 vyšší.
+A tabulka zemí, kde byla míra sebevražd žen v roce 2016 vyšší. Ve zbylých 176 zemích převažovala u mužů.
 \begin{table}[htb]
 \centering
 %\caption{Míra sebevražd v zemích, kde se zabilo více žen}
@@ -78,8 +78,10 @@ Pakistan & 3.1 & 3.0 \\
 \end{tabular}
 \end{table}
 
-\section{Zdravotní péče a míra sebevražd}
+\section{Štěstí, GDP a míra sebevražd}
 
+
+\renewcommand\refname{Reference}
 \bibliographystyle{abbrv}
 \bibliography{citations}
 \end{document}

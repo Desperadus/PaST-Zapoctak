@@ -22,6 +22,7 @@ def plot_genders_mean_suicide_rate(df, save_to_pdf = False):
 
     if save_to_pdf == True:
         plt.savefig("genders_mean_suicide_rate.pdf")
+        return
     plt.show()
     
 
@@ -73,11 +74,12 @@ def histogram(df):
 
 if __name__ == "__main__":
     df = load_file("data/Age-standardized suicide rates.csv")
-    print(df.head())
+    print(df)
     print(" ")
     # print(df.dtypes)
-    # plot_genders_mean_suicide_rate(df, save_to_pdf = True)
+    print(two_sample_t_test_of_suicide_rates(df)) #Welch t-test
+    plot_genders_mean_suicide_rate(df, save_to_pdf = True)
     print(list_countries_where_women_kill_them_self_more(df))
-    histogram(df)
-    # print(two_sample_t_test_of_suicide_rates(df))
+    #histogram(df)
+    
     # print(Levene_test_male_and_female_suicide_rate_variance(df))

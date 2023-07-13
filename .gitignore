@@ -1,6 +1,9 @@
 ## Core latex/pdflatex auxiliary files:
 Coding/data
-*archive.zip
+Coding/*.csv
+Coding/__pycache__
+Coding/*.pdf
+*.zip
 *.aux
 *.lof
 *.log
