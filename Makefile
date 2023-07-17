@@ -24,6 +24,6 @@ Coding/data: archive.zip happiness.zip gdp.zip
 
 main.pdf: Latex/main.tex Latex/citations.bib Coding/data Coding/male_and_female.py Coding/genders_mean_suicide_rate.pdf
 	echo "Creating Latex/main.pdf..."
-	cd Latex && pdflatex main.tex  > /dev/null && cp main.pdf ../result.pdf && rm main.pdf
+	cd Latex && pdflatex main.tex > /dev/null && cp main.pdf ../result.pdf && rm main.pdf
 
 Coding/genders_mean_suicide_rate.pdf: Coding/make_pdf_plots.py 
