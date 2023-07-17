@@ -7,7 +7,10 @@ import scipy.stats as stats
 
 
 def load_file(path):
-    df = pd.read_csv(path, encoding="utf-8")
+    try:
+        df = pd.read_csv(path, encoding="utf-8")
+    except:
+        df = pd.read_csv("Coding/"+path, encoding="utf-8")
     return df
 
 def plot_genders_mean_suicide_rate(df, save_to_pdf = False):
