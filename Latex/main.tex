@@ -26,7 +26,7 @@
 
 \begin{document}
 \maketitle
-\abstract{Míra sebevražd je dobrým indikátorem duševního zdraví populace, jelikož bývají vyvrcholením závažných psychických \cite{bertolote2002global, bertolote2004psychiatric, chang2011depressed, ferrari2014burden} problémů jedince a navíc se i dobře měří. Nalezení jevů asociovaných se sebevraždami a zkoumání efektivity nástrojů s cílem snížit jejich míru je esenciální proto, abychom jim co nejvíce předcházeli. V této statistické práci se zaměřím jak na analýzu jednoho z rizik, tak na impakt duševní zdravotní péče.}\\
+\abstract{Míra sebevražd je jedním z možných indikátorů duševního zdraví populace, jelikož bývají vyvrcholením závažných psychických \cite{bertolote2002global, bertolote2004psychiatric, chang2011depressed, ferrari2014burden} problémů jedince a navíc se i dobře měří. V této statistické práci se zaměřím na analýzu jednoho z rizik a na impakt duševní zdravotní péče.}\\
 
 Data jsou brána z volně dostupného datasetu na kaggle \href{https://www.kaggle.com/datasets/twinkle0705/mental-health-and-suicide-rates?select=Facilities.csv}{Mental Health and Suicide Rates}. Ten vychazí z dat WHO - moje analýzy jsou dělány na údajích z roku 2016. Zdrojové kódy jsou volně dostupné na mém \href{https://github.com/Desperadus/PaST-Zapoctak}{GitHubu}.
 
@@ -34,8 +34,8 @@ Data jsou brána z volně dostupného datasetu na kaggle \href{https://www.kaggl
 Podívejme se nyní, jestli jsou obě dvě skupiny obyvatel pod stejným rizikem. Buď $H_0$, že ženy a muži jsou ve světě pod stejným rizikem a buď $H_1$ že jedno pohlaví má větší šanci na sebevraždu. Hypotézu ověřím dvouvýběrovým t-testem a jako hladinu významnosti volím $\alpha = 0.05$ . T-test má určité předpoklady.
 \begin{enumerate}
 \item Nezávislost jevů - lze předpokládat, že drtivá většina sebevražd bude nezávislá na jiných.
-\item Normální rozdělení - lze trochu očekávat rozdělení docela podobné normálnímu, ovšem ne přímo normální. (Extrémy a míra sebevražd nemůže být záporná nám v tom brání). Ovšem dataset je velký $(n > 30)$ a tedy díky centrální limitní větě si můžeme dovolit udělat t-test.
-\item Poslední podmínkou k užití je to, že variance budou hodně podobné - vzhledem k tomu, že netuším, zdalipak budou podobné, tak zvolím Welchův t-test, který tohle nepředpokládá a umožňuje je mít rozdílné.
+\item Normální rozdělení - dataset je velký $(n > 30)$ a tedy díky centrální limitní větě si můžeme dovolit udělat t-test, i když naše data nemusí sama nutně mít normální rozdělení.
+\item Poslední podmínkou k užití je to, že variance budou hodně podobné - vzhledem k tomu, že netuším jaké jsou, tak zvolím Welchův t-test, který tohle nepředpokládá a umožňuje je mít rozdílné.
 \end{enumerate}
 
 \newpage
@@ -52,6 +52,7 @@ def welch_ttest():
     np_females = df_females["2016"].to_numpy()
     t_statistic, p_value = stats.ttest_ind(np_males, np_females, equal_var = False)
     return(t_statistic, p_value)
+print(welch_ttest())
 \end{python}
 \paragraph{}
 Jako výstup dostáváme: $t\_statistic = 13.4164773450928$ a $p\_value = 2.8621990375255226^{-31}$. Vzhledem k tomu, že $p\_value$ je výrazně nížší než naše $\alpha$, tak $H_0$ zamítáme. Pro zajímavost zde je barplot průměrné míry sebevražd pro obě pohlaví. 
@@ -63,7 +64,7 @@ Jako výstup dostáváme: $t\_statistic = 13.4164773450928$ a $p\_value = 2.8621
 \end{figure}
 
 \newpage
-A tabulka zemí, kde byla míra sebevražd žen v roce 2016 vyšší. Ve zbylých 176 zemích převažovala u mužů.
+A tabulka zemí, kde byla míra sebevražd žen v roce 2016 vyšší než u mužů. Ve zbylých 176 zemích převažovala u mužů.
 \begin{table}[htb]
 \centering
 %\caption{Míra sebevražd v zemích, kde se zabilo více žen}
@@ -85,7 +86,7 @@ Pakistan & 3.1 & 3.0 \\
 
 \section{Léčebné instituce, štěstí a míra sebevražd}
 \subsection{Léčebné instituce}
-	Mezi nástroje pro zlepšovaní mentálního zdraví patří odoborná péče od psychiatrů, psychologů, sociálních pracovníků atd.\ Bude tedy míra sebevražd lepší v zemích, kde je péče dostupnější? Vyrobme si korelační matici: \\
+	Mezi nástroje pro zlepšovaní mentálního zdraví patří odborná péče od psychiatrů, psychologů, sociálních pracovníků atd.\ Bude tedy míra sebevražd lepší v zemích, kde je péče dostupnější? Vyrobme si korelační matici: \\
 
 \begin{python}
 #Imports like in previous code snippet
