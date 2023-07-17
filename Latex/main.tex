@@ -8,6 +8,8 @@
 \usepackage{pythonhighlight}
 \usepackage{graphicx}
 \usepackage{caption}
+\usepackage[utf8x]{inputenc}
+\usepackage[czech,english]{babel}
 
 
 \title{Míra sebevražd ve světě}
@@ -24,9 +26,9 @@
 
 \begin{document}
 \maketitle
-\abstract{Míra sebevražd je dobrým indikátorem duševního zdraví populace, jelikož bývají vyvrcholením závažných psychických \cite{bertolote2002global, bertolote2004psychiatric, chang2011depressed, ferrari2014burden} problémů jedince. Nalezení jevů asociovaných se sebevraždami a zkoumání efektivity nástrojů s cílem snížit jejich míru je esenciální proto, abychom jim co nejvíce předcházeli. V této statistické práci se zaměřím jak na analýzu rizik, tak na efektivitu duševní zdravotní péče.}\\
+\abstract{Míra sebevražd je dobrým indikátorem duševního zdraví populace, jelikož bývají vyvrcholením závažných psychických \cite{bertolote2002global, bertolote2004psychiatric, chang2011depressed, ferrari2014burden} problémů jedince a dobře se měří. Nalezení jevů asociovaných se sebevraždami a zkoumání efektivity nástrojů s cílem snížit jejich míru je esenciální proto, abychom jim co nejvíce předcházeli. V této statistické práci se zaměřím jak na analýzu rizik, tak na efektivitu duševní zdravotní péče.}\\
 
-Data jsou brána z volně dostupného datasetu na kaggle \href{https://www.kaggle.com/datasets/twinkle0705/mental-health-and-suicide-rates?select=Facilities.csv}{Mental Health and Suicide Rates}. Ten vychazí z dat WHO - moje analýzy jsou dělány na datech z roku 2016. (Ovšem nedochází k výrazným změnám v míře sebevražd posledních letech) 
+Data jsou brána z volně dostupného datasetu na kaggle \href{https://www.kaggle.com/datasets/twinkle0705/mental-health-and-suicide-rates?select=Facilities.csv}{Mental Health and Suicide Rates}. Ten vychazí z dat WHO - moje analýzy jsou dělány na datech z roku 2016. (Ovšem nedochází k výrazným změnám v míře sebevražd posledních letech). Zdrojové kódy jsou volně dostupné na mém \href{https://github.com/Desperadus/PaST-Zapoctak}{GitHubu}.
 
 \section{Sebevraždy u mužů a žen}
 Podívejme se nyní, jestli jsou obě dvě skupiny obyvatel pod stejným rizikem. Buď $H_0$, že ženy a muži jsou ve světě pod stejným rizikem a buď $H_1$ že jedno pohlaví páchá více sebevražd. Hypotézu ověřím dvouvýběrovým t-testem a jako hladinu významnosti volím $\alpha = 0.05$ . Ten má určité předpoklady.
@@ -117,15 +119,17 @@ Zajímavé je, že ani rank státu v žebříčku šťastnosti obyvatel s tím n
   \label{fig:plot}
 \end{figure}
 
-\subsection{GDP} Člověk někdy na \href{https://www.youtube.com/watch?v=brEU5j4IsxU}{internetu narazí na tvrzení}, že v bohatších zemích, páchají lidé častějí sebevraždy.
+\subsection{GDP} Člověk někdy na \href{https://www.youtube.com/watch?v=brEU5j4IsxU}{internetu narazí na tvrzení}, že v bohatších zemích páchají lidé častějí sebevraždy.
 \begin{figure}[hbt]
   \centering
-  \includegraphics[width=0.57\textwidth]{../Coding/gdp_and_rates.pdf}
+  \includegraphics[width=0.75\textwidth]{../Coding/gdp_and_rates.pdf}
   %\caption{Sebevraždy a štěstí}
   \label{fig:plot}
 \end{figure} \\
-Je vidět, že u tohoto tvrzení musí být člověk opatrný. Byť je v bohatších zemích míra sebevražd značně větší než v některých chuších, tak ale je opět mnoho chudších zemí, kde je míra sebevražd vyšší nebo stejná jak v bohatých.
+Z plotu dat je vidět, že u tohoto tvrzení musí být člověk opatrný. Byť je v bohatších zemích míra sebevražd značně větší než v některých chuších, tak ale je opět mnoho chudších zemí, kde je míra sebevražd vyšší nebo stejná jak v bohatých.
 
+\section{Slovo závěrem}
+Pokud vás případně zajímají další statistiky, jako je například vývoj sebevražd v čase, jiné regrese, či dělat věci dle regionů (Evropa, Afrika...). Můžete si je nechat udělat na mém \href{https://github.com/Desperadus/PaST-Zapoctak}{GitHubu}.
 
 \renewcommand\refname{Reference}
 \bibliographystyle{abbrv}
