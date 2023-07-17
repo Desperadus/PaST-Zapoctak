@@ -10,7 +10,7 @@ happiness.zip - https://www.kaggle.com/datasets/unsdsn/world-happiness
 
 gdp.zip - https://www.kaggle.com/datasets/zgrcemta/world-gdpgdp-gdp-per-capita-and-annual-growths
 
-Nyní můžete zavolat ```make``` a vše je připraveno - aby vše proběhlo je třeba mít stažené pro python knihovny numpy, pandas, seaborn, scipy a matplotlib. Dále pak mít texlive pro kompilaci main.tex do pdf.
+Nyní můžete zavolat ```make``` a vše je připraveno - aby vše proběhlojak má, je třeba mít stažené pro python knihovny numpy, pandas, seaborn, scipy a matplotlib. Dále pak mít texlive pro kompilaci main.tex do pdf.
 
 ## Výsledná práce
 Výslednou práci najdte v hlavní složce jako result.pdf
