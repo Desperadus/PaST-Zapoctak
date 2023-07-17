@@ -53,19 +53,6 @@ def two_sample_t_test_of_suicide_rates(df):
     t_statistic, p_value = stats.ttest_ind(np_males, np_females, equal_var = False)
     return(t_statistic, p_value)
 
-def Levene_test_male_and_female_suicide_rate_variance(df):
-    df_males, df_females = get_male_and_female_suicide_rates(df)
-    np_males, np_females = year_2016_of_data_to_numpy(df_males, df_females)
-    
-    levene = stats.levene(np_males, np_females)
-    return levene
-
-def Shapiro_test(df):
-    df_males, df_females = get_male_and_female_suicide_rates(df)
-    np_males, np_females = year_2016_of_data_to_numpy(df_males, df_females)
-
-    print(stats.shapiro(np_males), stats.shapiro(np_females))
-
 def histogram(df):
     df_males, df_females = get_male_and_female_suicide_rates(df)
     np_males, np_females = year_2016_of_data_to_numpy(df_males, df_females)
@@ -85,4 +72,3 @@ if __name__ == "__main__":
     print(list_countries_where_women_kill_them_self_more(df))
     #histogram(df)
     
-    # print(Levene_test_male_and_female_suicide_rate_variance(df))

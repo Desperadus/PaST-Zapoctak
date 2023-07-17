@@ -26,7 +26,7 @@
 \maketitle
 \abstract{Míra sebevražd je dobrým indikátorem duševního zdraví populace, jelikož bývají vyvrcholením závažných psychických \cite{bertolote2002global, bertolote2004psychiatric, chang2011depressed, ferrari2014burden} problémů jedince. Nalezení jevů asociovaných se sebevraždami a zkoumání efektivity nástrojů s cílem snížit jejich míru je esenciální proto, abychom jim co nejvíce předcházeli. V této statistické práci se zaměřím jak na analýzu rizik, tak na efektivitu duševní zdravotní péče.}\\
 
-Data jsou brána z volně dostupného datasetu na kaggle \href{https://www.kaggle.com/datasets/twinkle0705/mental-health-and-suicide-rates?select=Facilities.csv}{Mental Health and Suicide Rates}.  
+Data jsou brána z volně dostupného datasetu na kaggle \href{https://www.kaggle.com/datasets/twinkle0705/mental-health-and-suicide-rates?select=Facilities.csv}{Mental Health and Suicide Rates}. Ten vychazí z dat WHO - moje analýzy jsou dělány na datech z roku 2016. (Ovšem nedochází k výrazným změnám v míře sebevražd posledních letech) 
 
 \section{Sebevraždy u mužů a žen}
 Podívejme se nyní, jestli jsou obě dvě skupiny obyvatel pod stejným rizikem. Buď $H_0$, že ženy a muži jsou ve světě pod stejným rizikem a buď $H_1$ že jedno pohlaví páchá více sebevražd. Hypotézu ověřím dvouvýběrovým t-testem a jako hladinu významnosti volím $\alpha = 0.05$ . Ten má určité předpoklady.
@@ -39,8 +39,11 @@ Podívejme se nyní, jestli jsou obě dvě skupiny obyvatel pod stejným rizikem
 \newpage
 Zde je analýza oněch dat v pythonu.
 \begin{python}
+import numpy as np
+import pandas as pd
+import scipy.stats as stats
 def welch_ttest():
-	df = pd.read_csv("data/Age-standardized suicide rates.csv")
+		df = pd.read_csv("data/Age-standardized suicide rates.csv")
     df_male = df.loc[df["Sex"].str.contains("Male")]
     df_female = df.loc[df["Sex"].str.contains("Female")]
     np_males df_males["2016"].to_numpy()
@@ -78,7 +81,50 @@ Pakistan & 3.1 & 3.0 \\
 \end{tabular}
 \end{table}
 
-\section{Štěstí, GDP a míra sebevražd}
+\section{Léčebné instituce, štěstí a míra sebevražd}
+\subsection{Léčebné instituce}
+	Mezi nástroje pro zlepšovaní mentálního zdraví patří odoborná péče od psychiatrů, psychologů, sociálních pracovníků atd. Bude tedy míra sebevražd v zemích, kde je péče dostupnější lepší? Vyrobme si korelační matici: \\
+
+\begin{python}
+#Imports like in previous code snippet
+import seaborn as sns
+df = load_merged_data() #more about this on my GitHub
+df = df.loc[df["Sex"].str.contains("Both sexes")]
+df = df.rename(columns={"2016": "suicide_rate"})
+df = df.loc[:, ["suicide_rate", "Psychiatrists","Psychologists" ,"Nurses", "Social_workers", "Happiness Rank", "Mental _hospitals", "outpatient _facilities", "day _treatment", "residential_facilities"]]
+df.to_csv("correlation_matrix.csv")
+corr_matrix = df.corr()
+fig, ax = plt.subplots(figsize=(8, 6))
+sns.heatmap(corr_matrix, annot=True, cmap="coolwarm", ax=ax)
+plt.show()
+\end{python}
+\newpage
+\begin{figure}[hbt]
+  \centering
+  \includegraphics[width=0.7\textwidth]{../Coding/corr_matrix.pdf}
+  %\caption{Caption of the plot}
+  \label{fig:plot}
+\end{figure}
+
+Počty psychiatrů/psychologů, mentálních institucí atd. nemají sami o sobě téměř žádnou korelaci s jejich mírou, i když by člověk na první pohled asi očekával, že budou mít negativní. 
+\subsection{Štěstí}
+Zajímavé je, že ani rank státu v žebříčku šťastnosti obyvatel s tím nekoreluje, byť je v datech patrná mírna polynomiální zavislost. (Data štěstí jsou z tohoto \href{https://www.kaggle.com/datasets/unsdsn/world-happiness}{datasetu}). 
+
+\begin{figure}[hbt]
+  \centering
+  \includegraphics[width=0.57\textwidth]{../Coding/polynomial_regression_happiness.pdf}
+  %\caption{Sebevraždy a štěstí}
+  \label{fig:plot}
+\end{figure}
+
+\subsection{GDP} Člověk někdy na \href{https://www.youtube.com/watch?v=brEU5j4IsxU}{internetu narazí na tvrzení}, že v bohatších zemích, páchají lidé častějí sebevraždy.
+\begin{figure}[hbt]
+  \centering
+  \includegraphics[width=0.57\textwidth]{../Coding/gdp_and_rates.pdf}
+  %\caption{Sebevraždy a štěstí}
+  \label{fig:plot}
+\end{figure} \\
+Je vidět, že u tohoto tvrzení musí být člověk opatrný. Byť je v bohatších zemích míra sebevražd značně větší než v některých chuších, tak ale je opět mnoho chudších zemí, kde je míra sebevražd vyšší nebo stejná jak v bohatých.
 
 
 \renewcommand\refname{Reference}
