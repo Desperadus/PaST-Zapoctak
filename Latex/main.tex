@@ -26,15 +26,15 @@
 
 \begin{document}
 \maketitle
-\abstract{Míra sebevražd je dobrým indikátorem duševního zdraví populace, jelikož bývají vyvrcholením závažných psychických \cite{bertolote2002global, bertolote2004psychiatric, chang2011depressed, ferrari2014burden} problémů jedince a dobře se měří. Nalezení jevů asociovaných se sebevraždami a zkoumání efektivity nástrojů s cílem snížit jejich míru je esenciální proto, abychom jim co nejvíce předcházeli. V této statistické práci se zaměřím jak na analýzu rizik, tak na efektivitu duševní zdravotní péče.}\\
+\abstract{Míra sebevražd je dobrým indikátorem duševního zdraví populace, jelikož bývají vyvrcholením závažných psychických \cite{bertolote2002global, bertolote2004psychiatric, chang2011depressed, ferrari2014burden} problémů jedince a navíc se i dobře měří. Nalezení jevů asociovaných se sebevraždami a zkoumání efektivity nástrojů s cílem snížit jejich míru je esenciální proto, abychom jim co nejvíce předcházeli. V této statistické práci se zaměřím jak na analýzu jednoho z rizik, tak na impakt duševní zdravotní péče.}\\
 
-Data jsou brána z volně dostupného datasetu na kaggle \href{https://www.kaggle.com/datasets/twinkle0705/mental-health-and-suicide-rates?select=Facilities.csv}{Mental Health and Suicide Rates}. Ten vychazí z dat WHO - moje analýzy jsou dělány na datech z roku 2016. (Ovšem nedochází k výrazným změnám v míře sebevražd posledních letech). Zdrojové kódy jsou volně dostupné na mém \href{https://github.com/Desperadus/PaST-Zapoctak}{GitHubu}.
+Data jsou brána z volně dostupného datasetu na kaggle \href{https://www.kaggle.com/datasets/twinkle0705/mental-health-and-suicide-rates?select=Facilities.csv}{Mental Health and Suicide Rates}. Ten vychazí z dat WHO - moje analýzy jsou dělány na údajích z roku 2016. Zdrojové kódy jsou volně dostupné na mém \href{https://github.com/Desperadus/PaST-Zapoctak}{GitHubu}.
 
 \section{Sebevraždy u mužů a žen}
-Podívejme se nyní, jestli jsou obě dvě skupiny obyvatel pod stejným rizikem. Buď $H_0$, že ženy a muži jsou ve světě pod stejným rizikem a buď $H_1$ že jedno pohlaví páchá více sebevražd. Hypotézu ověřím dvouvýběrovým t-testem a jako hladinu významnosti volím $\alpha = 0.05$ . Ten má určité předpoklady.
+Podívejme se nyní, jestli jsou obě dvě skupiny obyvatel pod stejným rizikem. Buď $H_0$, že ženy a muži jsou ve světě pod stejným rizikem a buď $H_1$ že jedno pohlaví má větší šanci na sebevraždu. Hypotézu ověřím dvouvýběrovým t-testem a jako hladinu významnosti volím $\alpha = 0.05$ . T-test má určité předpoklady.
 \begin{enumerate}
 \item Nezávislost jevů - lze předpokládat, že drtivá většina sebevražd bude nezávislá na jiných.
-\item Normální rozdělení - lze očekávat rozdělení podobné normálnímu, ovšem ne přímo normální. (Extrémy a míra sebevražd nemůže být záporná nám v tom brání). Ovšem dataset je docela velký $(n > 30)$ a tedy díky centrální limitní větě si můžeme dovolit udělat t-test.
+\item Normální rozdělení - lze trochu očekávat rozdělení docela podobné normálnímu, ovšem ne přímo normální. (Extrémy a míra sebevražd nemůže být záporná nám v tom brání). Ovšem dataset je velký $(n > 30)$ a tedy díky centrální limitní větě si můžeme dovolit udělat t-test.
 \item Poslední podmínkou k užití je to, že variance budou hodně podobné - vzhledem k tomu, že netuším, zdalipak budou podobné, tak zvolím Welchův t-test, který tohle nepředpokládá a umožňuje je mít rozdílné.
 \end{enumerate}
 
@@ -85,7 +85,7 @@ Pakistan & 3.1 & 3.0 \\
 
 \section{Léčebné instituce, štěstí a míra sebevražd}
 \subsection{Léčebné instituce}
-	Mezi nástroje pro zlepšovaní mentálního zdraví patří odoborná péče od psychiatrů, psychologů, sociálních pracovníků atd. Bude tedy míra sebevražd v zemích, kde je péče dostupnější lepší? Vyrobme si korelační matici: \\
+	Mezi nástroje pro zlepšovaní mentálního zdraví patří odoborná péče od psychiatrů, psychologů, sociálních pracovníků atd.\ Bude tedy míra sebevražd lepší v zemích, kde je péče dostupnější? Vyrobme si korelační matici: \\
 
 \begin{python}
 #Imports like in previous code snippet
@@ -108,7 +108,7 @@ plt.show()
   \label{fig:plot}
 \end{figure}
 
-Počty psychiatrů/psychologů, mentálních institucí atd. nemají sami o sobě téměř žádnou korelaci s jejich mírou, i když by člověk na první pohled asi očekával, že budou mít negativní. 
+Počty psychiatrů/psychologů, mentálních institucí atd. na hlavu nemají sami o sobě téměř žádnou korelaci s mírou sebevražd, i když by člověk na první pohled asi očekával, že budou mít negativní. 
 \subsection{Štěstí}
 Zajímavé je, že ani rank státu v žebříčku šťastnosti obyvatel s tím nekoreluje, byť je v datech patrná mírna polynomiální zavislost. (Data štěstí jsou z tohoto \href{https://www.kaggle.com/datasets/unsdsn/world-happiness}{datasetu}). 
 
@@ -126,7 +126,7 @@ Zajímavé je, že ani rank státu v žebříčku šťastnosti obyvatel s tím n
   %\caption{Sebevraždy a štěstí}
   \label{fig:plot}
 \end{figure} \\
-Z plotu dat je vidět, že u tohoto tvrzení musí být člověk opatrný. Byť je v bohatších zemích míra sebevražd značně větší než v některých chuších, tak ale je opět mnoho chudších zemí, kde je míra sebevražd vyšší nebo stejná jak v bohatých.
+Z plotu dat je vidět, že u tohoto tvrzení musí být člověk opatrný. Byť je v bohatších zemích míra sebevražd značně větší než v některých chudších. Tak ale je opět mnoho chudých zemí, kde je míra sebevražd vyšší nebo stejná jak v těch bohatých.
 
 \section{Slovo závěrem}
 Pokud vás případně zajímají další statistiky, jako je například vývoj sebevražd v čase, jiné regrese, či dělat věci dle regionů (Evropa, Afrika...). Můžete si je nechat udělat na mém \href{https://github.com/Desperadus/PaST-Zapoctak}{GitHubu}.
