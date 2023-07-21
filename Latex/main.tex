@@ -26,15 +26,15 @@
 
 \begin{document}
 \maketitle
-\abstract{Míra sebevražd je jedním z možných indikátorů duševního zdraví populace, jelikož bývají vyvrcholením závažných psychických \cite{bertolote2002global, bertolote2004psychiatric, chang2011depressed, ferrari2014burden} problémů jedince a navíc se i dobře měří. V této statistické práci se zaměřím na analýzu jednoho z rizik a na impakt duševní zdravotní péče.}\\
+\abstract{Míra sebevražd je jedním z možných indikátorů duševního zdraví populace, jelikož bývají vyvrcholením závažných psychických \cite{bertolote2002global, bertolote2004psychiatric, chang2011depressed, ferrari2014burden} problémů jedince. Navíc jsou jasně měřitelným ukazatelem oproti prevalenci duševních poruch v populaci. V této statistické práci se zaměřím na analýzu jejich míry dle pohlaví a jak jsou ovliňovány různými faktory jako je dostupnost duševní péče v dané zemi, GDP nebo štěstí populace.}\\
 
 Data jsou brána z volně dostupného datasetu na kaggle \href{https://www.kaggle.com/datasets/twinkle0705/mental-health-and-suicide-rates?select=Facilities.csv}{Mental Health and Suicide Rates}. Ten vychazí z dat WHO - moje analýzy jsou dělány na údajích z roku 2016. Zdrojové kódy jsou volně dostupné na mém \href{https://github.com/Desperadus/PaST-Zapoctak}{GitHubu}.
 
 \section{Sebevraždy u mužů a žen}
-Podívejme se nyní, jestli jsou obě dvě skupiny obyvatel pod stejným rizikem. Buď $H_0$, že ženy a muži jsou ve světě pod stejným rizikem a buď $H_1$ že jedno pohlaví má větší šanci na sebevraždu. Hypotézu ověřím dvouvýběrovým t-testem a jako hladinu významnosti volím $\alpha = 0.05$ . T-test má určité předpoklady.
+Otázkou je, zda obě dvě skupiny obyvatel jsou pod stejným rizikem. Buď $H_0$, že ženy a muži jsou ve světě pod stejným rizikem a buď $H_1$ že jedno pohlaví má větší šanci na sebevraždu. Hypotézu ověřím dvouvýběrovým t-testem a jako hladinu významnosti volím $\alpha = 0.05$ . T-test má určité předpoklady.
 \begin{enumerate}
 \item Nezávislost jevů - lze předpokládat, že drtivá většina sebevražd bude nezávislá na jiných.
-\item Normální rozdělení - dataset je velký $(n > 30)$ a tedy díky centrální limitní větě si můžeme dovolit udělat t-test, i když naše data nemusí sama nutně mít normální rozdělení.
+\item Normální rozdělení - dataset je velký $(n > 30)$ a tedy díky centrální limitní větě si můži dovolit udělat t-test, i když data nemusí sama nutně mít normální rozdělení.
 \item Poslední podmínkou k užití je to, že variance budou hodně podobné - vzhledem k tomu, že netuším jaké jsou, tak zvolím Welchův t-test, který tohle nepředpokládá a umožňuje je mít rozdílné.
 \end{enumerate}
 
@@ -55,7 +55,7 @@ def welch_ttest():
 print(welch_ttest())
 \end{python}
 \paragraph{}
-Jako výstup dostáváme: $t\_statistic = 13.4164773450928$ a $p\_value = 2.8621990375255226^{-31}$. Vzhledem k tomu, že $p\_value$ je výrazně nížší než naše $\alpha$, tak $H_0$ zamítáme. Pro zajímavost zde je barplot průměrné míry sebevražd pro obě pohlaví. 
+Jako výstup dostávám: $t\_statistic = 13.4164773450928$ a $p\_value = 2.8621990375255226^{-31}$. Vzhledem k tomu, že $p\_value$ je výrazně nížší než na začátku zvolená $\alpha$, tak $H_0$ zamítám. Pro zajímavost zde je barplot průměrné míry sebevražd pro obě pohlaví. 
 \begin{figure}[hbt]
   \centering
   \includegraphics[width=0.8\textwidth]{../Coding/genders_mean_suicide_rate.pdf}
@@ -84,12 +84,13 @@ Pakistan & 3.1 & 3.0 \\
 \end{tabular}
 \end{table}
 
+\newpage
 \section{Léčebné instituce, štěstí a míra sebevražd}
 \subsection{Léčebné instituce}
-	Mezi nástroje pro zlepšovaní mentálního zdraví patří odborná péče od psychiatrů, psychologů, sociálních pracovníků atd.\ Bude tedy míra sebevražd lepší v zemích, kde je péče dostupnější? Vyrobme si korelační matici: \\
+	Mezi nástroje pro zlepšovaní mentálního zdraví patří odborná péče od psychiatrů, psychologů, sociálních pracovníků atd.\ Bude tedy míra sebevražd lepší v zemích, kde je péče dostupnější? Na to vyrobím korelační matici: \\
 
 \begin{python}
-#Imports like in previous code snippet
+#Other imports like in previous code snippet
 import seaborn as sns
 df = load_merged_data() #more about this on my GitHub
 df = df.loc[df["Sex"].str.contains("Both sexes")]
@@ -101,15 +102,15 @@ fig, ax = plt.subplots(figsize=(8, 6))
 sns.heatmap(corr_matrix, annot=True, cmap="coolwarm", ax=ax)
 plt.show()
 \end{python}
-\newpage
+
 \begin{figure}[hbt]
   \centering
-  \includegraphics[width=0.7\textwidth]{../Coding/corr_matrix.pdf}
+  \includegraphics[width=0.65\textwidth]{../Coding/corr_matrix.pdf}
   %\caption{Caption of the plot}
   \label{fig:plot}
 \end{figure}
 
-Počty psychiatrů/psychologů, mentálních institucí atd. na hlavu nemají sami o sobě téměř žádnou korelaci s mírou sebevražd, i když by člověk na první pohled asi očekával, že budou mít negativní. 
+Počty psychiatrů/psychologů, mentálních institucí atd. na hlavu nemají samy o sobě téměř žádnou korelaci s mírou sebevražd, i když by člověk na první pohled asi očekával, že budou mít negativní. 
 \subsection{Štěstí}
 Zajímavé je, že ani rank státu v žebříčku šťastnosti obyvatel s tím nekoreluje, byť je v datech patrná mírna polynomiální zavislost. (Data štěstí jsou z tohoto \href{https://www.kaggle.com/datasets/unsdsn/world-happiness}{datasetu}). 
 
@@ -120,19 +121,57 @@ Zajímavé je, že ani rank státu v žebříčku šťastnosti obyvatel s tím n
   \label{fig:plot}
 \end{figure}
 
-\subsection{GDP} Člověk někdy na \href{https://www.youtube.com/watch?v=brEU5j4IsxU}{internetu narazí na tvrzení}, že v bohatších zemích páchají lidé častějí sebevraždy.
+\begin{python}
+def happiness_regression(df, degree):
+    df = df.loc[df["Sex"].str.contains("Both sexes")]
+
+    x = df["Happiness Rank"]
+    y = df["2016"]
+
+    coeffs = np.polyfit(x, y, degree)
+    poly_eqn = np.poly1d(coeffs)
+
+    plt.scatter(x, y)
+    plt.plot(x, poly_eqn(x), color="red")
+
+    plt.xlabel("Happiness rank")
+    plt.ylabel("Pocet sebevrazd na 100k obyvatel")
+
+    plt.show()
+\end{python}
+
+\newpage
+\subsection{GDP} Člověk někdy na \href{https://www.youtube.com/watch?v=brEU5j4IsxU}{internetu narazí na tvrzení}, že v bohatších zemích lidé častěji páchají sebevraždy.
 \begin{figure}[hbt]
   \centering
   \includegraphics[width=0.75\textwidth]{../Coding/gdp_and_rates.pdf}
   %\caption{Sebevraždy a štěstí}
   \label{fig:plot}
-\end{figure} \\
-Z plotu dat je vidět, že u tohoto tvrzení musí být člověk opatrný. Byť je v bohatších zemích míra sebevražd značně větší než v některých chudších. Tak ale je opět mnoho chudých zemí, kde je míra sebevražd vyšší nebo stejná jak v těch bohatých.
+\end{figure}
+
+\begin{python}
+def gdp_rates_plot(df, region = None):
+    df = df.loc[df["Sex"].str.contains("Both sexes")]
+    if region is not None:
+        df = df.loc[df["Region"].str.contains(region)]
+    df = df.dropna(subset=['2016_x', '2016_y'])
+  
+    np_rates = df["2016_x"].to_numpy()
+    np_gdp = df["2016_y"].to_numpy()
+
+    plt.scatter(np_gdp, np_rates)
+    plt.xlabel("Gdp na hlavu")
+    plt.ylabel("Pocet sebevrazd na 100k obyvatel")
+
+    plt.show()
+\end{python}
+
+Z plotu dat je vidět, že u tohoto tvrzení musí být člověk opatrný. Byť je v bohatších zemích míra sebevražd značně vyšší než v některých chudších, existují i chudé oblasti, kde je míra sebevražd vyšší nebo stejná jak v bohatých regionech.
 
 \section{Slovo závěrem}
-Pokud vás případně zajímají další statistiky, jako je například vývoj sebevražd v čase, jiné regrese, či dělat věci dle regionů (Evropa, Afrika...). Můžete si je nechat udělat na mém \href{https://github.com/Desperadus/PaST-Zapoctak}{GitHubu}.
+Pokud vás případně zajímají další statistiky, jako je například vývoj sebevražd v čase, jiné regrese, či analýza dle regionů (Evropa, Afrika...). Můžete si je nechat udělat ze zdrojáků na mém \href{https://github.com/Desperadus/PaST-Zapoctak}{GitHubu}.
 
-\renewcommand\refname{Reference}
+\renewcommand\refname{Reference} 
 \bibliographystyle{abbrv}
 \bibliography{citations}
 \end{document}
