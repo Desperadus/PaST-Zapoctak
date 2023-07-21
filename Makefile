@@ -1,6 +1,6 @@
 .PHONY: all clean
 
-all: Coding/data main.pdf Coding/corr_matrix.pdf Coding/genders_mean_suicide_rate.pdf Coding/happiness_and_rates.pdf
+all: Coding/data result.pdf Coding/corr_matrix.pdf Coding/genders_mean_suicide_rate.pdf Coding/happiness_and_rates.pdf
 
 clean:
 	rm -rf Coding/data
@@ -25,7 +25,7 @@ Coding/data: archive.zip happiness.zip gdp.zip
 	rm Coding/data/gdp.zip
 	sed -i 's/Country Name/Country/g' Coding/data/gdp*.csv
 
-main.pdf: Latex/main.tex Latex/citations.bib Coding/data Coding/male_and_female.py Coding/genders_mean_suicide_rate.pdf
+result.pdf: Latex/main.tex Latex/citations.bib Coding/data Coding/male_and_female.py Coding/genders_mean_suicide_rate.pdf
 	echo "Creating Latex/main.pdf..."
 	cd Latex && pdflatex main.tex > /dev/null && cp main.pdf ../result.pdf && rm main.pdf
 
