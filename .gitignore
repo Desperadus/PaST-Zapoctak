@@ -3,7 +3,7 @@ Coding/data
 Coding/*.csv
 Coding/__pycache__
 Coding/*.pdf
-*pdf
+Latex/*.pdf
 *.zip
 *.aux
 *.lof
