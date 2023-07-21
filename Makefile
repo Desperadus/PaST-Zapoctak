@@ -8,6 +8,7 @@ clean:
 	rm -f result.pdf
 	rm -f Coding/*.pdf
 	rm -f *.pdf
+	rm -f Latex/*.pdf
 
 
 Coding/data: archive.zip happiness.zip gdp.zip
